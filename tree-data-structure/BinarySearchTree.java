@@ -91,15 +91,10 @@ public class BinarySearchTree {
        System.out.println(" the number of nodes are "+no);
        int sum=rangeSumBST(root,6,10,0);
        System.out.println(sum);
-       boolean isbalence=isBalanced(root);
+       
     }
 
-   private static boolean isBalanced(Node root) {
-       if(root==null){
-        return true;
-       }
-       return Math.abs(height(root.left)-height(root.right))<=1 && isBalanced(root.left) && isBalanced(root.right)
-    }
+  
 
 private static int rangeSumBST(Node root, int low, int high,int sum) {
     if(root==null){
