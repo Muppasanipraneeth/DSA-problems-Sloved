@@ -1,5 +1,7 @@
 import java.util.*;
 
+import javax.swing.tree.TreeNode;
+
 public class BinarySearchTree {
     public static class Node {
         int data;
@@ -73,7 +75,7 @@ public class BinarySearchTree {
 
     public static void main(String[] args) {
         BinarySearchTree tree = new BinarySearchTree();
-        int nums[] = { 10,5,15,3,7,13,18,1,6};
+        int nums[] = { 10, 5, 15, 3, 7, 13, 18, 1, 6 };
         Arrays.sort(nums);
 
         populate(nums);
@@ -85,67 +87,109 @@ public class BinarySearchTree {
         postorder(root);
         System.out.println();
         System.out.println("Tree is balanced: " + tree.balanced());
-       int ans= heightoftree(root);
-       System.out.println( ans);
-       int no=countingnodes(root);
-       System.out.println(" the number of nodes are "+no);
-       int sum=rangeSumBST(root,6,10,0);
-       System.out.println(sum);
-       
+        int ans = heightoftree(root);
+        System.out.println(ans);
+        int no = countingnodes(root);
+        System.out.println(" the number of nodes are " + no);
+        int sum = rangeSumBST(root, 6, 10, 0);
+        System.out.println(sum);
+        levelOrderBottom(root);
+
     }
 
-  
+    public  static List<List<Integer>> levelOrderBottom(Node root) {
+        List<List<Integer>> li = new ArrayList<>();
+        if (root == null) {
+            return li;
+        }
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        q.add(null);
+        ArrayList<Integer>l=new ArrayList<>();
+        while (!q.isEmpty()) {
 
-private static int rangeSumBST(Node root, int low, int high,int sum) {
-    if(root==null){
+            Node current = q.remove();
+            if(current==null){
+                System.out.println();
+                            li.add(l);
+
+                l=new ArrayList<>();
+
+                if(q.isEmpty()){
+                    break;
+                }else{
+                    q.add(null);
+                }
+
+            }else{
+                System.out.print(current.data + " ");
+                l.add(current.data);
+                if (current.left != null) {
+                    q.add(current.left);
+                }
+                if (current.right != null) {
+                    q.add(current.right);
+                }
+            }
+        
+
+        }
+        Collections.reverse(li);
+        System.out.println(li);
+        return li;
+
+    }
+
+    private static int rangeSumBST(Node root, int low, int high, int sum) {
+        if (root == null) {
+            return sum;
+        }
+
+        // rangeSumBST(root.left, low, high,sum);
+        // rangeSumBST(root.right, low, high,sum);
+        // if(root.data>=low || root.data<=high){
+        // return sum+=root.data;
+        // }
+
+        // return sum;
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            Node currNode = q.remove();
+            if (currNode.data >= low && currNode.data <= high) {
+                sum += currNode.data;
+
+            }
+
+            if (currNode.left != null) {
+                q.add(currNode.left);
+            }
+            if (currNode.right != null) {
+                q.add(currNode.right);
+            }
+        }
         return sum;
     }
-   
-    //   rangeSumBST(root.left, low, high,sum);
-    //  rangeSumBST(root.right, low, high,sum);
-    //  if(root.data>=low || root.data<=high){
-    //     return sum+=root.data;
-    // }
-   
-    //    return sum;
-    Queue<Node>q=new LinkedList<>();
-    q.add(root);
-    while (!q.isEmpty()) {
-        Node currNode=q.remove();
-        if(currNode.data>=low && currNode.data<=high){
-            sum+=currNode.data;
-            
+
+    private static int countingnodes(Node root2) {
+        if (root2 == null) {
+            return 0;
         }
+        int lh = countingnodes(root2.left);
+        int rh = countingnodes(root2.right);
+        return lh + rh + 1;
+    }
 
-        if(currNode.left!=null){
-            q.add(currNode.left);
+    private static int heightoftree(Node root) {
+        if (root == null) {
+            return 0;
         }
-        if(currNode.right!=null){
-            q.add(currNode.right);
-        }
-    }
-    return sum;
+        int lh = heightoftree(root.left);
+        int rh = heightoftree(root.right);
+        return Math.max(lh, rh) + 1;
     }
 
-private static int countingnodes(Node root2) {
-      if(root2==null){
-        return 0;
-      }
-      int lh=countingnodes(root2.left);
-      int rh=countingnodes(root2.right);
-      return lh+rh+1;
-    }
-
-private static int  heightoftree(Node root) {
-       if(root==null){
-        return 0;
-       }
-       int lh=heightoftree(root.left);
-       int rh=heightoftree(root.right);
-       return Math.max(lh, rh)+1;
-    }
-
- private static void postorder(Node root2) {
+    private static void postorder(Node root2) {
         if (root2 == null) {
             return;
         }
