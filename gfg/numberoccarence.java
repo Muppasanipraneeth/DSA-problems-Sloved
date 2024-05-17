@@ -2,9 +2,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class numberoccarence {
-    /**
-     * @param args
-     */
+    
     public static void main(String[] args) {
         int array[] = { 1, 1, 2, 2, 2, 2, 3 };
         Scanner sc = new Scanner(System.in);
