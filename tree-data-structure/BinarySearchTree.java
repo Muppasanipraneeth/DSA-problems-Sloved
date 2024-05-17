@@ -74,8 +74,9 @@ public class BinarySearchTree {
     }
 
     public static void main(String[] args) {
+        Scanner sc= new Scanner(System.in);
         BinarySearchTree tree = new BinarySearchTree();
-        int nums[] = { 10, 5, 15, 3, 7, 13, 18, 1, 6 };
+        int nums[] = { 10, 5, 16, 4, 7, 13, 18, 1, 6 };
         Arrays.sort(nums);
 
         populate(nums);
@@ -94,6 +95,121 @@ public class BinarySearchTree {
         int sum = rangeSumBST(root, 6, 10, 0);
         System.out.println(sum);
         levelOrderBottom(root);
+        List<Double>avg= averageOfLevels(root);
+        System.out.println(avg);
+        List<List<Integer>>zigzag1=zigzagtraversal(root);
+        System.out.println(" enter the key value ");
+        int key=sc.nextInt();
+        int ans2=inordersucessor(root, key);
+        System.out.println(ans2);
+
+        // System.out.println((float)17/2);
+
+    }
+
+    private static int inordersucessor(Node root, int key) {
+        if(root==null){
+            return -1;
+        }
+        Queue<Node>q=new LinkedList<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            Node current=q.poll();
+            if(current.data==key){
+                q.poll();
+                break;
+            }
+            if(current.left!=null){
+                q.add(current.left);
+            }
+            if(current.right!=null){
+                q.add(current.right);
+            }
+            
+        }
+        return q.poll().data;
+
+    }
+
+    private static List<List<Integer>> zigzagtraversal(Node root) {
+        List<List<Integer>>result=new ArrayList<>();
+        if(root==null){
+            return result;
+        }
+        Deque<Node>q=new LinkedList<>();
+        q.add(root);
+        boolean left2right=false;
+        while (!q.isEmpty()) {
+            int size=q.size();
+            List<Integer>l=new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                if(left2right){
+                    Node current =q.pollLast();
+                    l.add(current.data);
+                    if(current.right!=null){
+                        q.addFirst(current.right);
+                    }
+                    if(current.left!=null){
+                        q.addFirst(current.left);
+                    }
+                   
+                    
+
+                }else{
+                    Node current =q.pollFirst();
+                    l.add(current.data);
+                    if(current.left!=null){
+                        q.addLast(current.left);
+                    }
+                    if(current.right!=null){
+                        q.addLast(current.right);
+                    }
+
+                }
+                
+            }
+            result.add(l);
+            left2right=!left2right;
+            
+
+            
+        }
+        // System.out.println(result);
+        return result;
+    }
+
+    private static List<Double> averageOfLevels(BinarySearchTree.Node root2) {
+       List<Double>avg=new ArrayList<>();
+       if(root==null){
+        return avg;
+       }
+       Queue<Node>q=new LinkedList<>();
+       q.add(root);
+       while (!q.isEmpty()) {
+        int size=q.size();
+        float average=0;
+        int sum=0;
+        for (int i = 0; i < size; i++) {
+            Node current=q.poll();
+            sum+=current.data;
+
+            if(current.left!=null){
+                q.add(current.left);
+            }
+            if(current.right!=null){
+                q.add(current.right);
+
+            }
+        }
+        // System.out.println("sum is"+sum);
+        average=(float)sum/size;
+        // System.out.println("average is "+average);
+        avg.add((double)average);
+        
+       }
+
+
+       return avg;
 
     }
 
@@ -106,14 +222,18 @@ public class BinarySearchTree {
         q.add(root);
         q.add(null);
         ArrayList<Integer>l=new ArrayList<>();
+        int sum=0;
+        int count=1;
         while (!q.isEmpty()) {
-
+        
             Node current = q.remove();
             if(current==null){
                 System.out.println();
                             li.add(l);
-
+                System.out.println("level"+count+" is "+sum);
+                count++;
                 l=new ArrayList<>();
+                sum=0;
 
                 if(q.isEmpty()){
                     break;
@@ -123,6 +243,7 @@ public class BinarySearchTree {
 
             }else{
                 System.out.print(current.data + " ");
+                sum+=current.data;
                 l.add(current.data);
                 if (current.left != null) {
                     q.add(current.left);
@@ -134,7 +255,7 @@ public class BinarySearchTree {
         
 
         }
-        Collections.reverse(li);
+        // Collections.reverse(li);
         System.out.println(li);
         return li;
 
