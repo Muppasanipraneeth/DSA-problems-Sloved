@@ -1,6 +1,6 @@
 import java.util.*;
 
-import javax.swing.tree.TreeNode;
+// import javax.swing.tree.TreeNode;
 
 public class BinarySearchTree {
     public static class Node {
@@ -76,7 +76,7 @@ public class BinarySearchTree {
     public static void main(String[] args) {
         Scanner sc= new Scanner(System.in);
         BinarySearchTree tree = new BinarySearchTree();
-        int nums[] = { 10, 5, 16, 4, 7, 13, 18, 1, 6 };
+        int nums[] = { 2,1,3 };
         Arrays.sort(nums);
 
         populate(nums);
@@ -88,23 +88,120 @@ public class BinarySearchTree {
         postorder(root);
         System.out.println();
         System.out.println("Tree is balanced: " + tree.balanced());
-        int ans = heightoftree(root);
-        System.out.println(ans);
-        int no = countingnodes(root);
-        System.out.println(" the number of nodes are " + no);
-        int sum = rangeSumBST(root, 6, 10, 0);
-        System.out.println(sum);
+        // int ans = heightoftree(root);
+        // System.out.println(ans);
+        // int no = countingnodes(root);
+        // System.out.println(" the number of nodes are " + no);
+        // int sum = rangeSumBST(root, 6, 10, 0);
+        // System.out.println(sum);
         levelOrderBottom(root);
-        List<Double>avg= averageOfLevels(root);
-        System.out.println(avg);
-        List<List<Integer>>zigzag1=zigzagtraversal(root);
-        System.out.println(" enter the key value ");
-        int key=sc.nextInt();
-        int ans2=inordersucessor(root, key);
-        System.out.println(ans2);
-
+        // List<Double>avg= averageOfLevels(root);
+        // System.out.println(avg);
+        // List<List<Integer>>zigzag1=zigzagtraversal(root);
+        // System.out.println(" enter the key value ");
+        // int key=sc.nextInt();
+        // int ans2=inordersucessor(root, key);
+        // System.out.println(ans2);
+        // List<Integer>r=rightview(root);
+        // System.out.println(" the right side view is"+r);
+        // int ans=sumofleaf(root);
         // System.out.println((float)17/2);
+        boolean ans=isVaild(root);
+        System.out.println(ans);
+        Scanner in=new Scanner(System.in);
+        System.out.println("enter the target value");
+        int target=in.nextInt();
+        boolean ans1=pathsum(root,target);
+        System.out.println(ans1);
 
+    }
+
+   
+
+    private static boolean pathsum(Node root2, int target) {
+        return pathsum(root2, target,0);
+      
+    }
+
+   private static boolean pathsum(BinarySearchTree.Node root, int target, int sum) {
+       if (root==null) {
+        return target==sum;
+        
+       }
+       sum+=root.data;
+       boolean l=pathsum(root.left, target,sum);
+       boolean r=pathsum(root.right, target,sum);
+       return l||r;
+    }
+
+ private static boolean isVaild(Node root) {
+        return isVaild(root,Long.MIN_VALUE,Long.MAX_VALUE);
+      
+    }
+
+    private static boolean isVaild(Node root, long minValue, long maxValue) {
+      if(root==null)return true;
+      if(root.data>maxValue || root.data<minValue)return false;
+      return isVaild(root.left, minValue, root.data)&&isVaild(root.right, root.data, maxValue);
+    }
+
+    private static int sumofleaf(BinarySearchTree.Node root2) {
+     if(root==null){
+        return 0;
+     }
+     int sum=0;
+     Queue<Node>q=new LinkedList();
+q.add(root);
+while(!q.isEmpty()){
+    Node current=q.poll();
+    if(current.left!=null){
+        q.add(current.left);
+    }
+    if(current.right!=null){
+        q.add(current.right);
+    }
+    if(current.left==null && current.right==null){
+        sum+=current.data;
+    }
+}
+return sum;
+
+
+
+    }
+    
+
+    private static List<Integer> rightview(BinarySearchTree.Node root2) {
+        List<Integer>rightside=new ArrayList<>();
+        if(root==null){
+            return rightside;
+        }
+        Queue<Node>q=new LinkedList();
+        q.add(root);
+        while (!q.isEmpty()) {
+            int size=q.size();
+            List<Integer>list=new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                Node current=q.poll();
+                list.add(current.data);
+                if(current.left!=null){
+                    q.add(current.left);
+
+                }
+                if(current.right!=null){
+                    q.add(current.right);
+                }
+                
+            }
+            rightside.add(list.get(size-1));
+            // Node current=q.poll();
+            // rightside.add(current.data);
+            // if(current.right!=null){
+            //     q.add(current.right);
+            // }
+            
+        }
+        return rightside;
     }
 
     private static int inordersucessor(Node root, int key) {

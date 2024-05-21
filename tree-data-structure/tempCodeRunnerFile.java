@@ -1,1 +1,2 @@
-Queue<Node> q = new LinkedList<>();
+  // list.add(5);
+    // list.add(9);

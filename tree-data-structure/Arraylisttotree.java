@@ -18,11 +18,11 @@ public class Arraylisttotree {
     }
  public static void main(String[] args) {
     ArrayList<Integer>list=new ArrayList<>();//-10,-3,0,5,9
-    list.add(-10);
-    list.add(-3);
-    list.add(0);
-    list.add(5);
-    list.add(9);
+    list.add(2);
+    list.add(1);
+    list.add(3);
+    // list.add(5);
+    // list.add(9);
     int nums[]=new int[list.size()];
     for (int i = 0; i < nums.length; i++) {
         nums[i]=list.get(i);
@@ -39,6 +39,7 @@ private static void inorder(Node root) {
     inorder(root.left);
     System.out.print(root.data+" ");
     inorder(root.right);
+    
 
 }
 private static Node populate(int[] nums) {
