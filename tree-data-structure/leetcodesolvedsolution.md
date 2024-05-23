@@ -194,3 +194,57 @@ public class rotatearray {
         }
         return rightside;
     }
+    ### left view of the tre 
+	
+
+    //Function to return list containing elements of left view of binary tree.
+    ArrayList<Integer> leftView(Node root)
+    {
+      // Your code here
+         ArrayList<Integer>result=new ArrayList<>();
+        if(root==null){
+            return result;
+        }
+        Queue<Node>q=new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            ArrayList<Integer>l=new ArrayList<>();
+            int size=q.size();
+            
+        
+            for (int i = 0; i <size; i++) {
+                Node current=q.poll();
+                l.add(current.data);
+                if(current.left!=null){
+                    q.add(current.left);
+                }
+                if(current.right!=null){
+                    q.add(current.right);
+                }
+            }
+            result.add(l.get(0));
+
+        }
+        // System.out.println(result);
+        return result;
+    }
+### diamter of the tree 
+ public static class Info{
+        
+        int height;
+        int diameter;
+        public Info(int height, int diameter){
+            this.height=height;
+            this.diameter=diameter;
+        }
+    }
+    public static Info diameterhei(Node root){
+        if(root==null){
+            return new Info(0, 0);
+        }
+        Info leftinfo=diameterhei(root.left);
+        Info rightinfo=diameterhei(root.right);
+        int diameter=Math.max(leftinfo.diameter, Math.max(rightinfo.diameter,leftinfo.height+rightinfo.height+1));
+        int height=Math.max(leftinfo.height, rightinfo.height)+1;
+        return new Info(height, diameter);
+    }
