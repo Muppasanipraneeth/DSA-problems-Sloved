@@ -105,8 +105,32 @@ public class trees{
         System.out.println(result);
         return result;
     }
+    public static  boolean issubtree(Node root,Node subroot){
+        if(root==null){
+            return false;
+
+        }
+        if(root.data==subroot.data){
+           if(isidentical(root,subroot)){
+
+           
+            return true;
+        }
+
+        }
+        return issubtree(root.left, subroot)|| issubtree(root.right,subroot);
+    }
 
     
+    private static boolean isidentical(trees.Node root, trees.Node subroot) {
+       if(root==null && subroot==null){
+        return true;
+       }else if(root==null || subroot==null || root.data!=subroot.data){
+        return false;
+       }
+      
+       return isidentical(root.right,subroot.right) && isidentical(root.left,subroot.left);
+    }
     public static void main(String[] args) {
         Node root=new Node(1);
          root.left=new Node(2);
@@ -129,7 +153,11 @@ public class trees{
         System.out.println("Diameter of the tree "+dia);
         System.out.println(diameterhei(root).diameter +" this is daimeter "+diameterhei(root).height+" this is height");
     leftveiw(root);
-    
+    Node subroot=new Node(2);
+    subroot.left=new Node(4);
+    subroot.right=new Node(5);
+    boolean pk=issubtree(root,subroot); 
+    System.out.println(pk);   
     
     }
 }
