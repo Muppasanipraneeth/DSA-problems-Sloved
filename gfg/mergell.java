@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class mergell {
@@ -13,7 +15,7 @@ public class mergell {
 
     }
 
-    public static Node head;
+    public static mergell.Node head;
 
     public static void add(int data) {
         Node newnode = new Node(data);
@@ -41,6 +43,7 @@ public class mergell {
         ll.add(7);
         ll.add(10);
         ll.add(7);
+        ll.add(7);
         // ll.add(7);
         // ll.add(6);
         // ll.add(5);
@@ -50,13 +53,65 @@ public class mergell {
         // ll.add(1);
 
         ll.display();
-        Scanner sc = new Scanner(System.in);
-        System.out.println("enter the k value");
-        int k = sc.nextInt();
-        ll.reversekth(k);
+        // Scanner sc = new Scanner(System.in);
+        // System.out.println("enter the k value");
+        // int k = sc.nextInt();
+        // ll.reversekth(k);
+        ll.display();
+        // ll.removedup();
         ll.display();
         // LinkedList: 1->2->2->4->5->6->7->8
+        int x=1;
+      Node k=  deletnode(head,x);
+        display(k);
+    }
 
+    private static Node deletnode(Node head, int x) {
+        int size=1;
+        Node temp=head;
+        while(temp!=null){
+            temp=temp.next;
+            size++;
+        }
+        System.out.println(size);
+        temp=head;
+        int count=1;
+        while (count<size) {
+            if(x==count){
+                temp=temp.next;
+            }
+            temp=temp.next;
+            count++;
+            
+        }
+        return head;
+     
+    }
+
+    private static void display(Node k) {
+        Node temp=k;
+        while(temp!=null){
+            System.out.print(temp.data+" ");
+            temp=temp.next;
+        }
+      
+    }
+
+    private void removedup() {
+       ArrayList<Integer>set=new ArrayList<>();
+       Node temp=head;
+       Node prev=null;
+       while (temp!=null) {
+        if(set.contains(temp.data)){
+            prev.next=temp.next;
+        }else{
+            
+            prev=temp;
+        }
+        set.add(temp.data);
+        temp=temp.next;
+        
+       }
     }
 
     private void reversekth(int k) {
