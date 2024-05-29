@@ -76,7 +76,7 @@ public class BinarySearchTree {
     public static void main(String[] args) {
         Scanner sc= new Scanner(System.in);
         BinarySearchTree tree = new BinarySearchTree();
-        int nums[] = { 2,1,3 };
+        int nums[] = { 1,2,5,3,4,6};
         Arrays.sort(nums);
 
         populate(nums);
@@ -87,14 +87,14 @@ public class BinarySearchTree {
         System.out.println("postorder  traversal");
         postorder(root);
         System.out.println();
-        System.out.println("Tree is balanced: " + tree.balanced());
+        // System.out.println("Tree is balanced: " + tree.balanced());
         // int ans = heightoftree(root);
         // System.out.println(ans);
         // int no = countingnodes(root);
         // System.out.println(" the number of nodes are " + no);
         // int sum = rangeSumBST(root, 6, 10, 0);
         // System.out.println(sum);
-        levelOrderBottom(root);
+        // levelOrderBottom(root);
         // List<Double>avg= averageOfLevels(root);
         // System.out.println(avg);
         // List<List<Integer>>zigzag1=zigzagtraversal(root);
@@ -106,17 +106,43 @@ public class BinarySearchTree {
         // System.out.println(" the right side view is"+r);
         // int ans=sumofleaf(root);
         // System.out.println((float)17/2);
-        boolean ans=isVaild(root);
-        System.out.println(ans);
-        Scanner in=new Scanner(System.in);
-        System.out.println("enter the target value");
-        int target=in.nextInt();
-        boolean ans1=pathsum(root,target);
-        System.out.println(ans1);
+        // boolean ans=isVaild(root);
+        // System.out.println(ans);
+        // Scanner in=new Scanner(System.in);
+        // System.out.println("enter the target value");
+        // int target=in.nextInt();
+        // boolean ans1=pathsum(root,target);
+        // System.out.println(ans1);
+        
+        Node linkedlist=flattentree(root);
 
     }
 
    
+
+    private static Node flattentree(BinarySearchTree.Node root) {
+        if(root==null){
+            return null;
+        }
+        Queue<Integer>q=new LinkedList<>();
+        addingelemts(root,q);
+        while (!q.isEmpty()) {
+            int value=q.remove();
+            r
+        }
+        
+       
+    }
+
+    private static void addingelemts(BinarySearchTree.Node root, Queue<Integer> q) {
+      if(root==null){
+        return ;
+      }
+      q.add(root.data);
+      addingelemts(root.left,q);
+      addingelemts(root.right,q);
+
+    }
 
     private static boolean pathsum(Node root2, int target) {
         return pathsum(root2, target,0);
