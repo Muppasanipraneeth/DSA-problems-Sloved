@@ -114,22 +114,72 @@ public class BinarySearchTree {
         // boolean ans1=pathsum(root,target);
         // System.out.println(ans1);
         
-        Node linkedlist=flattentree(root);
+        // Node linkedlist=flattentree(root);
+        topview(root);
+
+    }
+public static class Infos{
+    Node node;
+    int hd;
+    public Infos(Node node,int hd){
+        this.node=node;
+        this.hd=hd;
+    }
+
+
+}
+   
+
+    private static void topview(Node root) {
+     
+    //  Queue<Integer,Node>q=new LinkedList<>();
+    HashMap<Integer,Node>q=new HashMap<>();
+    Queue<Infos>p=new LinkedList<>();
+    p.add(new Infos(root, 0));
+    // p.add(null);
+    int min=0;
+    int max=0;
+    while (!p.isEmpty()) {
+        Infos current=p.remove();
+       
+        if(!q.containsKey(current.hd)){
+            q.put(current.hd, current.node);
+
+        }
+        if(current.node.left!=null){
+            p.add(new Infos( current.node.left,current.hd-1));
+            min=Math.min(min, current.hd-1);
+        }
+        if(current.node.right!=null){
+            p.add(new Infos(current.node.right, current.hd+1));
+            max=Math.max(max,current.hd+1);
+        }
+        
+    }
+    for (int i = min; i <=max; i++) {
+        System.out.print(" "+q.get(i).data);
+    }
 
     }
 
-   
+    private static void flattentree(Node root) {
+        Node current=root;
 
-    private static Node flattentree(BinarySearchTree.Node root) {
-        if(root==null){
-            return null;
+        while (current!=null) {
+            if(current.left!=null){
+                Node temp=current.left;
+                while (temp.right!=null) {
+                    temp=temp.right;
+                    
+                }
+                temp.right=current.right;
+                current.right=current.left;
+                current.left=null;
+            }
+            current=current.right;
+            
         }
-        Queue<Integer>q=new LinkedList<>();
-        addingelemts(root,q);
-        while (!q.isEmpty()) {
-            int value=q.remove();
-            r
-        }
+
         
        
     }
