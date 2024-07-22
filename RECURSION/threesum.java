@@ -1,3 +1,4 @@
+import java.util.*;
 class threesum{
     public static void main(String args[]){
         int array[]={0, -1, 2, -3, 1};
@@ -5,7 +6,7 @@ class threesum{
         System.out.println(ans);
     }
     public static boolean verifying( int []array){
-        Array.sort(array);
+        Arrays.sort(array);
         for( int i=0; i<=array.length-2; i++){
             int start=i+1;
             int end=array.length-i;
