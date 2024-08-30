@@ -26,9 +26,10 @@ public class numbertoString {
         if(i==n.length()){
             return ans;
         }
-        char ch=n.charAt(i);
-        if(map.containsKey(ch)){
-            ans=ans+map.get(ch);
+        char ch = n.charAt(i);
+        String chs = String.valueOf(ch);
+        if(map.containsKey(chs)){
+            ans=ans+map.get(chs);
 
         }
         return convertToString(n, i+1, ans, map);
