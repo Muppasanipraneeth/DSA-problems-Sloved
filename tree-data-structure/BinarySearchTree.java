@@ -1,6 +1,5 @@
 import java.util.*;
 
-// import javax.swing.tree.TreeNode;
 
 public class BinarySearchTree {
     public static class Node {
