@@ -1,3 +1,4 @@
+package leetcodesolved;
 public class firstoccarence {
     public static void main(String[] args) {
         String haystack="mississippi";

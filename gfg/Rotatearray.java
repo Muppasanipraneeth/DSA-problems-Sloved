@@ -1,7 +1,7 @@
+package gfg;
 import java.util.Arrays;
 import java.util.Scanner;
-
-public class rotatearray {
+public class Rotatearray {
     public static void main(String[] args) {
         int array[]={1,2,3,4,5};
         Scanner sc=new Scanner(System.in);
