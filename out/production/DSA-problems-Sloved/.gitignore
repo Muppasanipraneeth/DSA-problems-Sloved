@@ -1,0 +1,11 @@
+# Ignore compiled Java class files
+*.class
+
+# Ignore log files
+*.log
+
+# Ignore build output directory
+/build/
+
+# Ignore configuration files with sensitive information
+config.ini
